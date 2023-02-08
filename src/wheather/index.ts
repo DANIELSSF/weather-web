@@ -1,2 +1,3 @@
-export { SearchWheater } from './components/SearchWheater';
+export { ApiWheater } from './api/ApiWheater';
+export { SearchWheater } from './components/searchWheater/SearchWheater';
 export { WheatherPages } from './pages/WheatherPages';
