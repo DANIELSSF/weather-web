@@ -1,17 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { WheaterInterface } from './WheatherInterface';
 
 export const wheaterSlice = createSlice({
     name: 'wheater',
     initialState: {
-        counter: 10
-    },
+        isLoading: true,
+        datas: [],
+        isError: undefined
+    } as WheaterInterface,
+
     reducers: {
-        increment: (state, /* action */ ) => {
-            state.counter += 1;
+        checking: (state) => {
+            state.isLoading = true;
+            state.datas = [];
+            state.isError = undefined;
         },
+        onLoaded: (state, { payload = [] }) => {
+            state.isLoading = false;
+            state.datas = [payload];
+            state.isError = undefined;
+        },
+        clearErrorMessage: (state) => {
+            state.isError = undefined;
+        },
+        errorMessage: (state, { payload }) => {
+            state.isError = payload;
+        }
     }
 });
 
 
-// Action creators are generated for each case reducer function
-export const { increment } = wheaterSlice.actions;
+export const {
+    checking,
+    onLoaded,
+    clearErrorMessage,
+    errorMessage
+} = wheaterSlice.actions;
