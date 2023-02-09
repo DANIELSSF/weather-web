@@ -1,31 +1,26 @@
-import { FormEvent } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FormEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import queryString from 'query-string';
-
-import { CityName } from '../interfaces/CityName';
-import { useForm } from '../../hooks/useForm';
+import { CityName } from '../../interfaces/CityName';
+import { useForm, useQuery } from '../../../hooks';
+import { useWheaterCoordSlice } from '../../hooks/useWheaterCoordSlice';
 
 export const SearchWheater = () => {
-    const location = useLocation();
+
     const navigate = useNavigate();
+    const { startSearch } = useWheaterCoordSlice();
 
-    const { q = '' } = queryString.parse(location.search);
-    const validationCityName = typeof q === 'string'
-        ? q
-        : (Array.isArray(q)
-            ? q.join('')
-            : '');
+    const { validationCityName } = useQuery();
 
-    const { form, cityName, handleCity } = useForm<CityName>({
+    const { cityName, handleCity } = useForm<CityName>({
         cityName: validationCityName
     });
 
     const onSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         navigate(`?q=${cityName}`);
+        startSearch(cityName);
     };
-
 
     return (
         <>
