@@ -18,6 +18,8 @@ export const SearchWheater = () => {
 
     const onSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!cityName) return;
+        
         navigate(`?q=${cityName}`);
         startSearch(cityName);
     };
