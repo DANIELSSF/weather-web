@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { WheaterInterface } from '../../store/wheather/WheatherInterface';
+import { WheaterInterface } from '../interfaces/interfaces-Slice/WheatherInterface';
 import { checking, onLoaded, clearErrorMessage, errorMessage } from '../../store';
 import { ApisCoord } from '../api/ApisCoord';
 
@@ -18,11 +18,10 @@ export const useWheaterCoordSlice = () => {
         dispatch(checking());
         try {
             const { data } = await ApisCoord.get(`/direct?q=${city}&limit=${5}`);
-            console.log(data[0]);
-            dispatch(onLoaded({ datas: data[0] }));
+            dispatch(onLoaded( data[0] ));
         }
         catch (error) {
-            dispatch(errorMessage({ isError: error }));
+            dispatch(errorMessage( error ));
         }
     }
 
