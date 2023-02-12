@@ -5,20 +5,20 @@ export const wheaterSlice = createSlice({
     name: 'wheater',
     initialState: {
         isLoading: true,
-        datas: {},
+        datas: [],
         isError: undefined
     } as WheaterInterface,
 
     reducers: {
         checking: (state) => {
             state.isLoading = true;
-            state.datas = {
+            state.datas = [{
                 name: '',
                 lat: 0,
                 lon: 0,
                 country: '',
                 state: ''
-            };
+            }];
             state.isError = undefined;
         },
         onLoaded: (state, { payload  }) => {
