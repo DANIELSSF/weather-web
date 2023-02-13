@@ -1,14 +1,14 @@
-import { FormEvent, useEffect } from 'react';
+import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CityName } from '../../interfaces/CityName';
 import { useForm, useQuery } from '../../../hooks';
-import { useWheaterCoordSlice } from '../../hooks/useWheaterCoordSlice';
+import { useWheaterCoordStore } from '../../hooks/useWheaterCoordStore';
 
 export const SearchWheater = () => {
 
     const navigate = useNavigate();
-    const { startSearch } = useWheaterCoordSlice();
+    const { startSearch } = useWheaterCoordStore();
 
     const { validationCityName } = useQuery();
 
