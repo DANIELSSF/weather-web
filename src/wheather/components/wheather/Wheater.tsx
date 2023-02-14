@@ -1,40 +1,48 @@
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
-import { useWheaterCityStore } from '../../hooks/useWheaterCityStore';
-import { APICoordInterface } from '../../interfaces/interfaces-Api/ApiCoordInterface';
-import { WeatherCard } from '../weatherCard/WeatherCard';
-import { WeatherList } from '../weatherList/WeatherList';
+import { WeatherCard } from './weatherCard/WeatherCard';
+import { WeatherList } from './weatherList/WeatherList';
+import { useWheaterCoordStore } from '../../hooks/useWheaterCoordStore';
+
+import './wheaterStyle.css';
 
 export const Wheater = () => {
-  const { startWeatherCity, datasCity, datas } = useWheaterCityStore();
+
+  const { startSearchCity, isErrorCity, isErrorCoords, dataCoords, dataCity, cleanError } = useWheaterCoordStore();
 
   const coords = (newLat?: number, newLon?: number): void => {
-    if (datas[0] === undefined) return;
-    const { lat, lon } = datas[0];
+    if (dataCoords[0] === undefined) return;
+    const { lat, lon } = dataCoords[0];
 
     const latToUse = newLat || lat;
     const lonToUse = newLon || lon;
 
-    startWeatherCity(latToUse, lonToUse);
+    startSearchCity(latToUse, lonToUse);
   }
 
   useEffect(() => {
     coords();
-  }, [datas]);
+  }, [dataCoords]);
 
+  (isErrorCity || isErrorCoords !== undefined)
+    && (Swal.fire('Ciudad Erronea', 'La ciudad es erronea o sus datos meteorologicos no estan disponibles', 'error'), cleanError());
 
   return (
-    <div>
+    <div className='wheaterStyle'>
+      <div className='wheaterStyle__card'>
       {
         <WeatherCard
-          key={datasCity.id}
-          {...datasCity}
+          key={dataCity.id}
+          {...dataCity}
         />
       }
-      <hr />
+      </div>
 
+      <div className='wheaterStyle__list'>
+      <h5 className='wheaterStyle__h5'>Ciudades Alternas</h5>
       {
-        datas.map(data => (
+        dataCoords.map(data => (
           <WeatherList
             key={data!.lat}
             {...data}
@@ -42,6 +50,8 @@ export const Wheater = () => {
           />
         ))
       }
+      </div>
+
 
     </div>
   )
