@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { WheaterInterface } from '../interfaces/interfaces-Slice/WheatherInterface';
-import { ApisCoord } from '../api/ApisCoord';
+import { onLoadedCity, onLoadedCoords, clearErrorMessage, errorMessageCity, checkingCoords, checkingCity } from '../../store/wheather/weatherSlice';
 
-import { checking } from '../../store/wheather/wheaterCitySlice';
-import { onLoaded, clearErrorMessage, errorMessage } from '../../store/wheather/weatherSlice';
+import { WheaterInterface } from '../interfaces/interfaces-Slice/WheatherInterface';
 import { APICoordInterface } from '../interfaces/interfaces-Api/ApiCoordInterface';
+
+import { ApisCoord, ApiWheater } from '../api';
 
 type AppState = {
     wheater: WheaterInterface
@@ -13,33 +13,53 @@ type AppState = {
 
 export const useWheaterCoordStore = () => {
 
-    const { datas, isError, isLoading } = useSelector<AppState, WheaterInterface>(state => state.wheater);
+    const { dataCoords, dataCity, isErrorCity, isErrorCoords, isLoading } = useSelector<AppState, WheaterInterface>(state => state.wheater);
     const dispatch = useDispatch();
 
 
-    const startSearch = async (city: string | string[]) => {
-        dispatch(checking());
+    const startSearchCoords = async (city: string | string[]): Promise<void> => {
+        dispatch(checkingCoords());
         try {
             const { data } = await ApisCoord.get(`/direct?q=${city}&limit=${5}`);
 
-            const uniqueLat = [...new Set(data.map((resp: APICoordInterface) => resp.lat))].map(lat => {
-                return data.find((resp: APICoordInterface) => resp.lat === lat);
+            const uniqueLat = [...new Set(data.map((resp: APICoordInterface): number => resp.lat))].map(lat => {
+                return data.find((resp: APICoordInterface): boolean => resp.lat === lat);
             }).filter(resp => resp !== undefined) as APICoordInterface[];
 
-            dispatch(onLoaded(uniqueLat));
+            dispatch(onLoadedCoords(uniqueLat));
         }
         catch (error) {
-            dispatch(errorMessage(error));
+            dispatch(errorMessageCity(error));
         }
+    };
+
+    const startSearchCity = async (lat: number, lon: number): Promise<void> => {
+        dispatch(checkingCity());
+
+        try {
+            const { data } = await ApiWheater.get(`weather?lat=${lat}&lon=${lon}`);
+            dispatch(onLoadedCity(data));
+
+        } catch (error) {
+            dispatch(errorMessageCity(error));
+        }
+    };
+
+    const cleanError = () => {
+        dispatch(clearErrorMessage());
     }
 
     return {
         //Propiedades
-        datas,
-        isError,
+        dataCoords,
+        isErrorCity,
+        isErrorCoords,
         isLoading,
+        dataCity,
 
         //Métodos
-        startSearch,
+        startSearchCoords,
+        startSearchCity,
+        cleanError
     }
 }
