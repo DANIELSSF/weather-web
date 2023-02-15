@@ -32,7 +32,7 @@ export const SearchWheater = () => {
 
     return (
         <div className='searchWeatherStyle'>
-            <h3 className='searchWeatherStyle__h3'>Ciudad <span>{cityName}</span></h3>
+            <h3 className='searchWeatherStyle__h3'>{cityName}</h3>
             <form 
             onSubmit={onSubmitSearch}
             className='searchWeatherStyle__form'
