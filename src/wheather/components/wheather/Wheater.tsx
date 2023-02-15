@@ -30,26 +30,23 @@ export const Wheater = () => {
 
   return (
     <div className='wheaterStyle'>
-      <div className='wheaterStyle__card'>
       {
         <WeatherCard
           key={dataCity.id}
           {...dataCity}
         />
       }
-      </div>
 
-      <div className='wheaterStyle__list'>
-      <h5 className='wheaterStyle__h5'>Ciudades Alternas</h5>
-      {
-        dataCoords.map(data => (
-          <WeatherList
-            key={data!.lat}
-            {...data}
-            coords={coords}
-          />
-        ))
-      }
+      <div className='weatherStyle__list'>
+        {
+          dataCoords.map(data => (
+            <WeatherList
+              key={data!.lat}
+              {...data}
+              coords={coords}
+            />
+          ))
+        }
       </div>
 
 
