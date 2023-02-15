@@ -1,12 +1,12 @@
 import { SearchWheater, Wheater } from '../index';
 
+import './weatherPageStyle.css';
+
 export const WheatherPages = () => {
     return (
-        <>
-            <h3>Wheather Web</h3>
+        <div className='weatherPage'>
             <SearchWheater />
-            <hr />
             <Wheater />
-        </>
+        </div>
     )
 }
