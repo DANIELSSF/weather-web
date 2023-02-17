@@ -9,7 +9,12 @@ import './wheaterStyle.css';
 
 export const Wheater = () => {
 
-  const { startSearchCity, isErrorCity, isErrorCoords, dataCoords, dataCity, cleanError } = useWheaterCoordStore();
+  const {
+    startSearchCity, isErrorCity,
+    isErrorCoords, dataCoords,
+    dataCity, cleanError,
+    isLoading
+  } = useWheaterCoordStore();
 
   const coords = (newLat?: number, newLon?: number): void => {
     if (dataCoords[0] === undefined) return;
@@ -30,12 +35,14 @@ export const Wheater = () => {
 
   return (
     <div className='wheaterStyle'>
-      {
-        <WeatherCard
-          key={dataCity.id}
-          {...dataCity}
-        />
-      }
+
+        {
+          <WeatherCard
+            key={dataCity.id}
+            {...dataCity}
+            isLoading={isLoading}
+          />
+        }
 
       <div className='weatherStyle__list'>
         {
