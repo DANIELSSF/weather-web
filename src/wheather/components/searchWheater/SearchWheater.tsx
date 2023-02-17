@@ -12,7 +12,7 @@ import './searchWeatherStyle.css';
 export const SearchWheater = () => {
 
     const navigate = useNavigate();
-    const { startSearchCoords } = useWheaterCoordStore();
+    const { startSearchCoords, cleanError } = useWheaterCoordStore();
 
     const { validationCityName } = useQuery();
 
@@ -20,11 +20,11 @@ export const SearchWheater = () => {
         cityName: validationCityName
     });
 
-    const onSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmitSearch = (e: FormEvent<HTMLFormElement>):void => {
         e.preventDefault();
         if (!cityName) {
             Swal.fire('Campo vacío', 'Inserta una ciudad valida', 'warning');
-            return};
+            return cleanError()};
 
         navigate(`?q=${cityName}`);
         startSearchCoords(cityName);
