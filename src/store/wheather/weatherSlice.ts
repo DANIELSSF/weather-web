@@ -6,7 +6,7 @@ import { getDefaultInfoCoords } from '../../wheather/helpers/getDefaultInfoCoord
 export const wheaterSlice = createSlice({
     name: 'wheater',
     initialState: {
-        isLoading: true,
+        isLoading: false,
         isErrorCity: undefined,
         isErrorCoords: undefined,
         dataCoords: [],
