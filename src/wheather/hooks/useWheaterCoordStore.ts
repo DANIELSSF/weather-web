@@ -56,6 +56,8 @@ export const useWheaterCoordStore = () => {
         isErrorCoords,
         isLoading,
         dataCity,
+        checkingCoords,
+        checkingCity,
 
         //Métodos
         startSearchCoords,
