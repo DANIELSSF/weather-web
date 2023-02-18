@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-pink: #d5378e;
+    --color-words: #000000;
+    --color-background: #050402;
+}
+
+.weatherPage {
+    padding: .1px;
+    color: var(--color-words);
+    background-image: linear-gradient(to bottom, #1b0f33, #000);
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+}
+
+
+
+@media (max-width: 769px) {
+    .weatherPage {
+        grid-template-rows: 1fr 2fr 1fr;
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .weatherPage {
+        grid-template-rows: 1fr 3fr 1fr;
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+    }
+
+}
