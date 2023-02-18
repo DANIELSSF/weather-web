@@ -1,0 +1,136 @@
+:root {
+  --color-background_card: #fff;
+}
+
+.wheaterStyle {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  min-height: 300px;
+  margin-top: 20px;
+}
+
+
+.weatherStyle__list {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+  width: 40%;
+  height: 60%;
+  border: 2px solid var(--color-background_card);
+  border-radius: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  background-color: var(--color-background_card);
+}
+
+.weatherStyle__list::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+
+.weatherStyle__list:hover::-webkit-scrollbar {
+  width: 10px;
+}
+
+.weatherStyle__list:hover::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 20px;
+}
+
+.loader_bg {
+  position: relative;
+  background-color: var(--color-background_card);
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+}
+
+.loader {
+  border: solid transparent;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: calc(50% - 75px);
+  left: calc(50% - 75px);
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  border: 1em solid #ff5733;
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: loader 2s linear infinite;
+  opacity: 0;
+}
+
+.loader:before {
+  animation-delay: 0.5s;
+}
+
+@keyframes loader {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+
+
+
+@media (max-width: 992px) {
+  .wheaterStyle {
+    grid-auto-flow: column;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .weatherStyle__list {
+    width: 60%;
+    height: 50%;
+    margin: auto 10px;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .wheaterStyle {
+    grid-auto-flow: row;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .weatherStyle__list {
+    width: 30%;
+    height: 60%;
+    place-self: center;
+  }
+
+}
+
+
+@media (max-width: 576px) {
+
+  .weatherStyle__list {
+    width: 50%;
+    height: 60%;
+  }
+
+}
