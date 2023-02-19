@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { onLoadedCity, onLoadedCoords, clearErrorMessage, errorMessageCity, checkingCoords, checkingCity } from '../../store/wheather/weatherSlice';
+import { onLoadedCity, onLoadedCoords, clearErrorMessage, errorMessageCity, checkingCoords, checkingCity } from '../../store/weather/weatherSlice';
 
 import { WheaterInterface } from '../interfaces/interfaces-Slice/WheatherInterface';
 import { APICoordInterface } from '../interfaces/interfaces-Api/ApiCoordInterface';

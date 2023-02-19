@@ -1,5 +1,4 @@
-import { SkyMoon } from '../components/sky-moon/SkyMoon';
-import { SearchWheater, Wheater } from '../index';
+import { SearchWheater, SkyMoon, Wheater } from '../index';
 
 import './weatherPageStyle.css';
 
